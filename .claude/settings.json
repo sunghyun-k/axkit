@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(mise exec:*)",
+      "Bash(mise trust:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git branch:*)",
+      "Bash(git checkout:*)",
+      "Bash(git stash:*)",
+      "Bash(git show:*)",
+      "Bash(bundle exec:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(which:*)",
+      "Bash(xcodebuild -version:*)",
+      "Bash(swift --version:*)"
+    ]
+  },
+  "enableAllProjectMcpServers": true,
+  "hooks": {},
+  "enabledPlugins": {
+    "apple-dev-docs@claude-swift-plugins": true,
+    "format-swift@claude-swift-plugins": true,
+    "xcassets-manager@claude-swift-plugins": true,
+    "xcstrings-manager@claude-swift-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-swift-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "sunghyun-k/claude-swift-plugins"
+      }
+    }
+  }
+}
