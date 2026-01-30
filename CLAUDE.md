@@ -11,7 +11,14 @@ AXKit은 macOS Accessibility API(ApplicationServices)의 Swift 래퍼 라이브�
 ```bash
 # 빌드
 swift build
+
+# Playground 실행
+swift run Playground
 ```
+
+## 플로우
+
+- Playground를 사용하여 작성한 AXKit API 테스트
 
 ## 대규모 코드베이스 분석 시 지침
 

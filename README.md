@@ -19,40 +19,66 @@ dependencies: [
 
 ## Usage
 
+### Permission
+
 ```swift
 import AXKit
 
-// Check accessibility permission
-guard checkAccessibilityPermission() else { return }
-
-// Get application by bundle ID
-if let app = AXElement.application(bundleId: "com.apple.Safari") {
-    print(app.title)
-
-    // Get windows
-    for window in app.windows {
-        print(window.frame)
-    }
-
-    // Find element by identifier
-    if let button = app.find(identifier: "myButton") {
-        button.press()
-    }
+// Check permission
+if AXPermission.isGranted {
+    print("Accessibility permission granted")
 }
 
-// Get element at screen position
-if let element = AXElement.elementAtPosition(CGPoint(x: 100, y: 100)) {
-    print(element.role)
-}
+// Request permission with system dialog
+AXPermission.request(prompt: true)
 ```
 
-## Features
+### Getting Elements
 
-- **Element Creation**: System-wide, by PID, by bundle ID, or at screen position
-- **Attribute Access**: Generic and typed accessors for strings, bools, numbers, points, sizes, rects
-- **Attribute Modification**: Set element attributes with type-safe methods
-- **Actions**: Perform accessibility actions (press, cancel, etc.)
-- **Tree Traversal**: Navigate parent/children, find elements by predicate or identifier
+```swift
+// Get application by bundle identifier
+let safari = try AXElement.application(bundleIdentifier: "com.apple.Safari")
+
+// Get application by PID
+let app = AXElement.application(pid: processIdentifier)
+
+// Get element at screen position
+let element = try AXElement.element(at: CGPoint(x: 100, y: 200))
+```
+
+### Reading Attributes
+
+```swift
+// Convenience properties
+let role = element.role           // String?
+let title = element.title         // String?
+let isEnabled = element.isEnabled // Bool
+let children = element.children   // [AXElement]
+
+// Batch attribute access (2x faster)
+let (role, id, title) = element.attributes(.role, .identifier, .title)
+```
+
+### Performing Actions
+
+```swift
+try button.press()        // Click
+try textField.focus()     // Focus
+try textField.setValue("Hello")  // Set text
+```
+
+### Tree Traversal
+
+```swift
+// Find first button
+let button = try window.findFirst(role: AXRole.button, maxDepth: 5)
+
+// Find all text fields
+let textFields = window.findAll(role: AXRole.textField, maxDepth: 10)
+
+// Find with predicate
+let element = try window.findFirst(maxDepth: 5) { $0.identifier == "submitBtn" }
+```
 
 ## License
 

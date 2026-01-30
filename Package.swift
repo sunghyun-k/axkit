@@ -9,5 +9,6 @@ let package = Package(
     ],
     targets: [
         .target(name: "AXKit"),
+        .executableTarget(name: "Playground", dependencies: ["AXKit"]),
     ]
 )
